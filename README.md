@@ -6,11 +6,11 @@ Automatic install script for Debian based systems Ubuntu, Mint, Debian.
 
 Install Shift (Mainnet)
 ```
-git clone https://github.com/shiftproject/shift.git && shift/shift_manager.bash install
+git clone https://github.com/mswezey23/shift.git && shift/shift_manager.bash install
 ```
 Install Shift (Testnet)
 ```
-git clone -b testnet https://github.com/shiftproject/shift.git && shift/shift_manager.bash install
+git clone -b testnet https://github.com/mswezey23/shift.git && shift/shift_manager.bash install
 ```
 Update Shift Manager
 ```
