@@ -51,7 +51,7 @@ install_prereq() {
     echo -e "done.\n"
 
     echo -n "Running: apt-get install npm curl build-essential python lsb-release wget openssl autoconf libtool automake libsodium-dev jq dnsutils ... ";
-    sudo apt-get install -y -qq npm curl build-essential python lsb-release wget openssl autoconf libtool automake libsodium-dev jq dnsutils &>> $logfile || \
+    sudo apt-get install -y -qq curl build-essential python lsb-release wget openssl autoconf libtool automake libsodium-dev jq dnsutils &>> $logfile || \
     { echo "Could not install packages prerequisites. Exiting." && exit 1; };
     echo -e "done.\n"
 
