@@ -116,7 +116,7 @@ create_database() {
 }
 
 download_blockchain() {
-    echo -n "Download a recent, verified snapshot? ([y]/n): "
+    echo -n "Download a recent, verified snapshot: $NETWORK? ([y]/n): "
     read downloadornot
 
     if [ "$downloadornot" == "y" ] || [ -z "$downloadornot" ]; then
@@ -199,7 +199,7 @@ start_postgres() {
 install_node_npm() {
 
     echo -n "Installing nodejs and npm... "
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - &>> $logfile
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - &>> $logfile
     sudo apt-get install -y -qq nodejs &>> $logfile || { echo "Could not install nodejs and npm. Exiting." && exit 1; }
     echo -e "done.\n" && echo -n "Installing grunt-cli... "
     sudo npm install grunt-cli -g &>> $logfile || { echo "Could not install grunt-cli. Exiting." && exit 1; }
@@ -214,7 +214,7 @@ install_node_npm() {
 
 install_shift() {
 
-    echo -n "Installing Shift core... "
+    echo -n "Installing Shift core testnet... "
     npm install --production &>> $logfile || { echo "Could not install SHIFT, please check the log directory. Exiting." && exit 1; }
     echo -e "done.\n"
 
@@ -223,8 +223,8 @@ install_shift() {
 
 install_webui() {
 
-    echo -n "Installing Shift WebUi... "
-    git clone https://github.com/ShiftProject/shift-wallet &>> $logfile || { echo -n "Could not clone git wallet source. Exiting." && exit 1; }
+    echo -n "Installing Shift WebUi testnet... "
+    git clone https://github.com/mswezey23/shift-wallet &>> $logfile || { echo -n "Could not clone git wallet source. Exiting." && exit 1; }
 
     if [[ -d "public" ]]; then
         rm -rf public/
@@ -237,12 +237,12 @@ install_webui() {
         exit 1;
     fi
 
-    cd public && npm install &>> $logfile || { echo -n "Could not install web wallet node modules. Exiting." && exit 1; }
-
     # Bower config seems to have the wrong permissions. Make sure we change these before trying to use bower.
     if [[ -d /home/$USER/.config ]]; then
         sudo chown -R $USER:$USER /home/$USER/.config &> /dev/null
     fi
+
+    cd public && npm install &>> $logfile || { echo -n "Could not install web wallet node modules. Exiting." && exit 1; }
 
     bower --allow-root install &>> $logfile || { echo -e "\n\nCould not install bower components for the web wallet. Exiting." && exit 1; }
     grunt release &>> $logfile || { echo -e "\n\nCould not build web wallet release. Exiting." && exit 1; }
@@ -258,7 +258,7 @@ install_webui() {
 update_manager() {
 
     echo -n "Updating Shift Manager ... "
-    wget -q -O shift_manager.bash https://raw.githubusercontent.com/ShiftProject/shift/$GIT_BRANCH/shift_manager.bash
+    wget -q -O shift_manager.bash https://raw.githubusercontent.com/mswezey23/shift/$GIT_BRANCH/shift_manager.bash
     echo "done."
 
     return 0;

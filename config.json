@@ -30,7 +30,7 @@
     "api": {
         "enabled": true,
         "access": {
-            "public": false,
+            "public": true,
             "whiteList": ["127.0.0.1"]
         },
         "options": {
